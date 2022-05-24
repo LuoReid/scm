@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
+import {
+  Check,
+  Delete,
+  Edit,
+  Message,
+  Search,
+  Star,
+} from '@element-plus/icons-vue'
 defineProps<{ msg: string }>()
 
 const count = ref(0)
@@ -31,6 +38,23 @@ const count = ref(0)
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
   </p>
+  <el-row class="mb-4">
+    <el-button>Default</el-button>
+    <el-button type="primary">Primary</el-button>
+    <el-button type="success">Success</el-button>
+    <el-button type="info">Info</el-button>
+    <el-button type="warning">Warning</el-button>
+    <el-button type="danger">Danger</el-button>
+    <el-button>中文</el-button>
+  </el-row>
+  <el-row>
+    <el-button :icon="Search" circle />
+    <el-button type="primary" :icon="Edit" circle />
+    <el-button type="success" :icon="Check" circle />
+    <el-button type="info" :icon="Message" circle />
+    <el-button type="warning" :icon="Star" circle />
+    <el-button type="danger" :icon="Delete" circle />
+  </el-row>
 </template>
 
 <style scoped>
