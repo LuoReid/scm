@@ -6,7 +6,7 @@ const { MODE } = env
 export function getEnvs() {
   const href = window.location.href
   let envStr = ''
-  if ( MODE === 'development' ) {
+  if ( MODE === 'dev' ) {
     envStr = 'dev'
   } else {
     if ( href.indexOf( 'fat' ) >= 0 ) {
