@@ -54,7 +54,7 @@
 <script setup>
 import { ref } from 'vue'
 // import path from 'node:path'
-// import { resolve } from 'path'
+import { resolve } from 'path'
 import { isExternal } from '@/utils/validate'
 import AppLink from './Link.vue'
 
@@ -113,8 +113,8 @@ const resolvePath = ( routePath ) => {
   }
 
   // console.log( 'routePath', routePath)
-  // console.log( 'props.basePath', props.basePath)
-  return routePath
-  // return resolve( props.basePath, routePath )
+  console.log( 'props.basePath', props.basePath)
+  // return routePath
+  return resolve( props.basePath, routePath )
 }
 </script>

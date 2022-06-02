@@ -5,11 +5,6 @@
 </script>
 
 <template>
-  <p>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <router-link to="/">Go to home</router-link>
-    <router-link to="/about">Go to About</router-link>
-  </p>
   <router-view />
 </template>
 
@@ -20,6 +15,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>

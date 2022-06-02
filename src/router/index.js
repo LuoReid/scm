@@ -46,12 +46,14 @@ export const asyncRoutes = [
   {
     path: '/',
     name: 'Dashboard',
+    title: '驾驶舱',
     component: Layout,
     redirect: '/dashboard',
     children: [
       {
         path: 'dashboard',
         name: 'Dashboard',
+        title: '驾驶舱',
         component: () => import('@/views/dashboard/index.vue'),
         meta: {
           title: 'Dashboard',
