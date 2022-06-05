@@ -2,21 +2,9 @@
   <div :class="{ 'has-logo': showLogo }">
     <Logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :collapse-transition="false"
-        mode="vertical"
-        :default-active="activeMenu"
-        :collapse="isCollapse"
-        unique-opened
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-      >
-        <sidebar-item
-          v-for="route in permission_routes"
-          :key="route.path"
-          :item="route"
-          :base-path="route.path"
-        />
+      <el-menu :collapse-transition="false" mode="vertical" :default-active="activeMenu" :collapse="isCollapse"
+        unique-opened :background-color="variables.menuBg" :text-color="variables.menuText">
+        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -31,73 +19,75 @@ import { useStore } from 'vuex'
 import Logo from './Logo.vue'
 import SidebarItem from './SidebarItem.vue'
 
-export default defineComponent( {
-  name : 'Sidebar',
-  components : { Logo, SidebarItem },
+export default defineComponent({
+  name: 'Sidebar',
+  components: { Logo, SidebarItem },
   setup() {
     const store = useStore()
     const route = useRoute()
 
-    const set = reactive( {
-      permission_routes : computed( () => {
-        const permissionRoutes = toRaw( store.getters.permission_routes )
-
-        const filterRouter = filterAsyncRoutes( permissionRoutes )
-
+    const set = reactive({
+      permission_routes: computed(() => {
+        const permissionRoutes = toRaw(store.getters.permission_routes)
+        console.warn('routes:', permissionRoutes)
+        const filterRouter = filterAsyncRoutes(permissionRoutes)
+        if (filterRouter.length === 1) {
+          return filterRouter[0].children
+        }
         return filterRouter
         // return toRaw(store.getters.permission_routes)
-      } ),
+      }),
 
-      sidebar : computed( () => {
+      sidebar: computed(() => {
         return store.getters.sidebar
-      } ),
+      }),
 
-      showLogo : computed( () => {
+      showLogo: computed(() => {
         return store.state.settings.sidebarLogo
-      } ),
+      }),
 
-      isCollapse : computed( () => {
+      isCollapse: computed(() => {
         return !store.getters.sidebar.opened
-      } ),
+      }),
 
-      variables : {
-        menuText : '#bfcbd9',
-        menuActiveText : '#409EFF',
-        subMenuActiveText : '#f4f4f5',
-        menuBg : '#304156',
-        menuHover : '#263445',
-        subMenuBg : '#1f2d3d',
-        subMenuHover : '#001528',
-        sideBarWidth : '210px'
+      variables: {
+        menuText: '#bfcbd9',
+        menuActiveText: '#409EFF',
+        subMenuActiveText: '#f4f4f5',
+        menuBg: '#304156',
+        menuHover: '#263445',
+        subMenuBg: '#1f2d3d',
+        subMenuHover: '#001528',
+        sideBarWidth: '210px'
       }
-    } )
+    })
 
-    const activeMenu = computed( () => {
+    const activeMenu = computed(() => {
       const { meta, path } = route
-      if ( meta.activeMenu ) {
+      if (meta.activeMenu) {
         return meta.activeMenu
       }
       return path
-    } )
+    })
 
-    const filterAsyncRoutes = ( datas ) => {
+    const filterAsyncRoutes = (datas) => {
       const res = []
-      datas.forEach( ( item ) => {
-        if ( !item.hidden ) {
+      datas.forEach((item) => {
+        if (!item.hidden) {
           const tmp = { ...item }
-          if ( tmp.children ) {
-            tmp.children = filterAsyncRoutes( tmp.children )
+          if (tmp.children) {
+            tmp.children = filterAsyncRoutes(tmp.children)
           }
-          res.push( tmp )
+          res.push(tmp)
         }
-      } )
+      })
       return res
     }
 
     return {
-      ...toRefs( set ),
+      ...toRefs(set),
       activeMenu
     }
   }
-} )
+})
 </script>

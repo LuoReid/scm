@@ -355,6 +355,7 @@ export default {
   position: relative;
   overflow: hidden;
   width: 100%;
+  display: flex;
 
   .el-scrollbar__bar {
     bottom: 0px;
